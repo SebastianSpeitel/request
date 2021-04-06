@@ -1,0 +1,31 @@
+{
+  "name": "@sebastianspeitel/request",
+  "version": "0.0.1",
+  "description": "A tiny typesafe way to use fetch",
+  "author": "Sebastian Speitel",
+  "license": "AGPL-3.0",
+  "keywords": [
+    "typesafe",
+    "tiny",
+    "fetch"
+  ],
+  "bugs": {
+    "url": "https://github.com/SebastianSpeitel/request/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SebastianSpeitel/request.git"
+  },
+  "homepage": "https://github.com/SebastianSpeitel/request#readme",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "devDependencies": {
+    "typescript": "*"
+  },
+  "files": [
+    "dist"
+  ]
+}
