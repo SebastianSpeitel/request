@@ -1,17 +1,23 @@
-export interface EndpointOptions<R extends EndpointResponse = EndpointResponse>
-  extends RequestInit {
-  parse?: R extends void | Response
-    ? never
-    : R extends ArrayBuffer
-    ? "arrayBuffer"
-    : R extends Blob
-    ? "blob"
-    : R extends FormData
-    ? "formData"
-    : R extends string
-    ? "text" | "json"
-    : "json";
-}
+type Falsy = false | 0 | "" | null | undefined;
+
+export type EndpointOptions<
+  R extends EndpointResponse = EndpointResponse
+> = RequestInit &
+  (R extends void
+    ? { parse?: never }
+    : R extends Response
+    ? { parse: Falsy }
+    : {
+        parse: R extends ArrayBuffer
+          ? "arrayBuffer"
+          : R extends Blob
+          ? "blob"
+          : R extends FormData
+          ? "formData"
+          : R extends string
+          ? "text" | "json"
+          : "json";
+      });
 
 export type EndpointResponse =
   | void
@@ -48,15 +54,20 @@ type SameValueKeys<T, U extends Record<any, any>> = {
   [K in keyof T]: T[K] extends U[K] ? (U[K] extends T[K] ? K : never) : never;
 }[keyof T];
 
+type FalsyValueKeys<T> = {
+  [K in keyof T]: Falsy extends T[K] ? K : never;
+}[keyof T];
+
 type ReqOption<
   E extends Endpoint,
   D extends EndpointOptions
 > = E extends Endpoint<infer _, infer R, infer O>
   ? {
       [K in Exclude<
-        RequiredKeys<O> | "parse",
+        RequiredKeys<O>,
         | NeverKeys<EndpointOptions<R> & O>
         | SameValueKeys<EndpointOptions<R> & O, D>
+        | (FalsyValueKeys<EndpointOptions<R> & O> & FalsyValueKeys<D>)
       >]-?: (EndpointOptions<R> & O)[K];
     } &
       Partial<EndpointOptions<R> & O>
