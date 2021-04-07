@@ -10,7 +10,7 @@
         "noImplicitThis": true,
         "noImplicitReturns": true,
         "strictFunctionTypes": true,
-        "moduleResolution": "Node"
+        "strictNullChecks": true
     },
     "include": [
         "src"
