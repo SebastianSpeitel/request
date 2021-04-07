@@ -24,7 +24,7 @@
     "test": "tsc -p tsconfig.test.json"
   },
   "devDependencies": {
-    "typescript": "*"
+    "typescript": "^4.2.3"
   },
   "files": [
     "dist"
