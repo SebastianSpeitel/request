@@ -16,9 +16,6 @@ req("void");
 // should accept an empty second paramters
 req("void");
 
-//@ts-expect-error should no accept any parse option
-req("void", { parse: null as any });
-
 // should accept parse:json
 req("json", { parse: "json" });
 
